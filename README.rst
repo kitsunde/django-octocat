@@ -61,7 +61,8 @@ Don't forget to migrate your database
 
     ./manage.py migrate github
 
-If you are planning on cloning the repos set the target directory
+If you are planning on cloning the repos set the target directory in
+``settings.py``
 
 .. code-block:: python
 
@@ -74,7 +75,7 @@ Finally add the Github settings under ``/admin``.
 Usage
 -----
 
-To authenticate users send them to `{% url 'github:authorize' pk=1 %}` where
+To authenticate users send them to ``{% url 'github:authorize' pk=1 %}`` where
 pk is the id of the Github app.
 
 Contribute
