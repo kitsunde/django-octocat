@@ -4,6 +4,9 @@ Django Octocat
 .. image:: https://api.travis-ci.org/Celc/django-octocat.png?branch=master
         :target: https://travis-ci.org/Celc/django-octocat
 
+.. image:: https://coveralls.io/repos/Celc/django-octocat/badge.png?branch=master
+        :target: https://coveralls.io/r/Celc/django-octocat?branch=master
+
 .. image:: https://pypip.in/v/django-octocat/badge.png
         :target: https://crate.io/packages/django-octocat
 
