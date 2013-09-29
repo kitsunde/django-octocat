@@ -1,6 +1,15 @@
 Django Octocat
 ==============
 
+.. image:: https://api.travis-ci.org/Celc/django-octocat.png?branch=master
+        :target: https://travis-ci.org/Celc/django-octocat
+
+.. image:: https://pypip.in/v/django-octocat/badge.png
+        :target: https://crate.io/packages/django-octocat
+
+.. image:: https://pypip.in/d/django-octocat/badge.png
+        :target: https://crate.io/packages/django-octocat
+
 A Django app for handling github users and repos.
 
 Installation
