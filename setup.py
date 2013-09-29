@@ -2,6 +2,17 @@ import os
 from setuptools import setup, find_packages
 import github as app
 
+install_requires = [
+    'django',
+    'django-celery',
+    'requests>1.0.0'
+]
+
+tests_requires = [
+    'django-discover-runner',
+    'factory-boy'
+]
+
 
 def read(fname):
     try:
@@ -22,9 +33,8 @@ setup(
     url="https://github.com/Celc/django-octocat",
     packages=find_packages(),
     include_package_data=True,
-    install_requires=[
-        'django',
-        'django-celery',
-        'requests>1.0.0'
-    ]
+    install_requires=install_requires,
+    extras_require={
+        'tests': tests_requires
+    },
 )
