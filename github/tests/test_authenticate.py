@@ -1,11 +1,16 @@
-from django.conf import settings
 from django.core.urlresolvers import reverse
-from django.db import models
 from django.test import TestCase
 from mock import patch
 from github.factories import ApplicationFactory, AuthenticationFactory
 from github.models import Authentication, Application
-from django.contrib.auth import get_user_model
+
+# Support for Django 1.4 models.
+try:
+    from django.contrib.auth import get_user_model
+    User = get_user_model()
+except ImportError:
+    from django.contrib.auth.models import User
+
 
 class TestAuthorize(TestCase):
     def setUp(self):
@@ -34,7 +39,6 @@ class TestGithubAuthorizationMiddleware(TestCase):
         'email': 'test@example.org'
     })
     def test_authorize_created_user(self):
-        User = get_user_model()
         user_count = User.objects.count()
         self.client.get(self.url)
         self.assertEqual(user_count + 1, User.objects.count())
