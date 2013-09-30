@@ -1,6 +1,6 @@
 import factory
 
-from .models import Application
+from .models import Application, Authentication
 
 
 class ApplicationFactory(factory.DjangoModelFactory):
@@ -10,3 +10,11 @@ class ApplicationFactory(factory.DjangoModelFactory):
     client_id = '2134'
     client_secret = 'safsdfdsf'
     callback_url = 'http://testserver'
+
+
+class AuthenticationFactory(factory.DjangoModelFactory):
+    FACTORY_FOR = Authentication
+
+    application = factory.SubFactory(ApplicationFactory)
+    redirect_uri = 'http://testserver'
+    scope = ''
