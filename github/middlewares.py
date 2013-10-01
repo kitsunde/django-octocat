@@ -27,6 +27,4 @@ class GithubAuthorizationMiddleware(object):
 
             authenticated_user = authenticate(github_user=github_user)
             if not authenticated_user is None:
-                if github_user.user is None:
-                    github_user.user = authenticated_user
                 login(request, authenticated_user)
