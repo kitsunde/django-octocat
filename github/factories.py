@@ -1,6 +1,6 @@
 import factory
 
-from .models import Application, Authentication
+from .models import Application, Authentication, User
 
 
 class ApplicationFactory(factory.DjangoModelFactory):
@@ -18,3 +18,14 @@ class AuthenticationFactory(factory.DjangoModelFactory):
     application = factory.SubFactory(ApplicationFactory)
     redirect_uri = 'http://testserver'
     scope = ''
+
+
+class UserFactory(factory.DjangoModelFactory):
+    FACTORY_FOR = User
+
+    login = 'test'
+    uid = 1
+    application = factory.SubFactory(ApplicationFactory)
+    avatar_url = 'http://example.org/foo.png'
+    url = 'http://example.org/foo'
+    email = 'foo@example.org'

@@ -1,8 +1,8 @@
 from django.core.urlresolvers import reverse
 from django.test import TestCase
 from mock import patch
-from github.factories import ApplicationFactory, AuthenticationFactory
-from github.models import Authentication, Application
+from github.factories import ApplicationFactory, AuthenticationFactory, UserFactory
+from github.models import Authentication, Application, User as GithubUser
 
 # Support for Django 1.4 models.
 try:
@@ -42,3 +42,16 @@ class TestGithubAuthorizationMiddleware(TestCase):
         user_count = User.objects.count()
         self.client.get(self.url)
         self.assertEqual(user_count + 1, User.objects.count())
+
+    @patch.object(Authentication, 'get_access_token', lambda s, a: 'foo')
+    @patch.object(Application, 'request', lambda s, m, headers: {
+        'id': '1',
+        'login': 'testuser',
+        'url': 'http://example.org/foo',
+        'email': 'test@example.org'
+    })
+    def test_authorize_updates_access_token(self):
+        user = UserFactory(application=self.authorization.application)
+        self.assertNotEqual(user.access_token, 'foo')
+        self.client.get(self.url)
+        self.assertEqual(GithubUser.objects.get(pk=user.pk).access_token, 'foo')
