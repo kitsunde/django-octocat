@@ -99,3 +99,8 @@ Contribute
     make develop
 
 Add code, write test, send pull request.
+
+Octocat
+-------
+Octocat is a trademark owned by GitHub Inc and is used with permission. The
+library is in no way affiliated, maintained or sponsored by GitHub Inc.
