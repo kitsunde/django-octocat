@@ -48,3 +48,5 @@ TEST_RUNNER = 'discover_runner.DiscoverRunner'
 TEMPLATE_DIRS = (os.path.join(APP_ROOT, 'templates'),)
 
 ROOT_URLCONF = 'github.tests.urls'
+
+AUTH_USER_MODEL = os.environ.get('AUTH_USER_MODEL', 'auth.User')
