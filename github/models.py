@@ -1,8 +1,12 @@
 import json
 import urllib
+from django.conf import settings
 from django.db import models
 import operator
 import requests
+
+# 1.4 Compatibility
+AUTH_USER_MODEL = getattr(settings, 'AUTH_USER_MODEL', 'auth.User')
 
 
 class Application(models.Model):
@@ -59,7 +63,7 @@ class Authentication(models.Model):
 
 
 class User(models.Model):
-    user = models.ForeignKey('auth.User',
+    user = models.ForeignKey(AUTH_USER_MODEL,
                              null=True,
                              blank=True,
                              related_name='github_users')

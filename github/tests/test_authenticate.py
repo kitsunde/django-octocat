@@ -3,13 +3,9 @@ from django.test import TestCase
 from mock import patch
 from github.factories import ApplicationFactory, AuthenticationFactory, UserFactory
 from github.models import Authentication, Application, User as GithubUser
+from github.utils import get_user_model
 
-# Support for Django 1.4 models.
-try:
-    from django.contrib.auth import get_user_model
-    User = get_user_model()
-except ImportError:
-    from django.contrib.auth.models import User
+User = get_user_model()
 
 
 class TestAuthorize(TestCase):

@@ -28,6 +28,8 @@ INSTALLED_APPS = [
     'django.contrib.sites',
 
     'github',
+
+    'github.tests.account'
 ]
 
 

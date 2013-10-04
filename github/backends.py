@@ -1,5 +1,7 @@
 from django.contrib.auth.backends import ModelBackend
-from django.contrib.auth.models import User
+from utils import get_user_model
+
+User = get_user_model()
 
 
 class GithubBackend(ModelBackend):
