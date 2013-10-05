@@ -27,6 +27,19 @@ class TestAuthorize(TestCase):
         self.assertEqual(response['Location'], target_url)
         self.assertEqual(response.status_code, 302)
 
+    def test_redirect_to_next(self):
+        response = self.client.get(self.url, {'next': '/test-url'})
+        params = urllib.urlencode({
+            'state': '1',
+            'redirect_uri': 'http://testserver/test-url',
+            'client_id': '2134'
+        })
+        target_url = 'https://github.com/login/oauth/authorize?%s' % params
+        # We can replace this in Django 1.7 with
+        # self.assertRedirects(.., fetch_redirect_response=False)
+        self.assertEqual(response['Location'], target_url)
+        self.assertEqual(response.status_code, 302)
+
 
 class TestGithubAuthorizationMiddleware(TestCase):
     def setUp(self):
