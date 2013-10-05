@@ -39,7 +39,7 @@ class Authentication(models.Model):
         base_url = 'https://github.com/login/oauth/authorize'
         auth_args = {
             'client_id': self.application.client_id,
-            'redirect_url': self.redirect_uri
+            'redirect_uri': self.redirect_uri
         }
         if self.scope:
             auth_args['scope'] = self.scope

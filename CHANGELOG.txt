@@ -1,3 +1,6 @@
+=== 0.2.1 ===
+- Fix an authentication issue to do padding invalid params to Github.
+
 === 0.2.0 ===
 - Support custom user models.
 

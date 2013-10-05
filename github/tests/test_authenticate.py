@@ -1,3 +1,4 @@
+import urllib
 from django.core.urlresolvers import reverse
 from django.test import TestCase
 from mock import patch
@@ -15,11 +16,16 @@ class TestAuthorize(TestCase):
 
     def test_redirects_to_github(self):
         response = self.client.get(self.url)
-        self.assertRedirects(response,
-                             'https://github.com/login/oauth/authorize'
-                             '?state=1'
-                             '&redirect_url=http%3A%2F%2Ftestserver'
-                             '&client_id=2134')
+        params = urllib.urlencode({
+            'state': '1',
+            'redirect_uri': 'http://testserver',
+            'client_id': '2134'
+        })
+        target_url = 'https://github.com/login/oauth/authorize?%s' % params
+        # We can replace this in Django 1.7 with
+        # self.assertRedirects(.., fetch_redirect_response=False)
+        self.assertEqual(response['Location'], target_url)
+        self.assertEqual(response.status_code, 302)
 
 
 class TestGithubAuthorizationMiddleware(TestCase):
