@@ -6,6 +6,8 @@ import operator
 import requests
 
 # 1.4 Compatibility
+from github.exceptions import BadVerificationCode
+
 AUTH_USER_MODEL = getattr(settings, 'AUTH_USER_MODEL', 'auth.User')
 
 
@@ -58,6 +60,9 @@ class Authentication(models.Model):
             'client_secret': self.application.client_secret,
             'code': code
         }, headers={'Accept': 'application/json'}).json()
+
+        if response.get('error') == 'bad_verification_code':
+            raise BadVerificationCode()
 
         return response['access_token']
 

@@ -1,7 +1,10 @@
+import json
 import urllib
 from django.core.urlresolvers import reverse
 from django.test import TestCase
+from httmock import HTTMock
 from mock import patch
+from github.exceptions import BadVerificationCode
 from github.factories import ApplicationFactory, AuthenticationFactory, UserFactory
 from github.models import Authentication, Application, User as GithubUser
 from github.utils import get_user_model
@@ -70,3 +73,14 @@ class TestGithubAuthorizationMiddleware(TestCase):
         self.assertNotEqual(user.access_token, 'foo')
         self.client.get(self.url)
         self.assertEqual(GithubUser.objects.get(pk=user.pk).access_token, 'foo')
+
+
+class TestAuthorizeModel(TestCase):
+    def setUp(self):
+        self.authentication = AuthenticationFactory()
+
+    def test_raise_exception_on_invalid_access_token(self):
+        response = json.dumps({'error': 'bad_verification_code'})
+        with self.assertRaises(BadVerificationCode):
+            with HTTMock(lambda url, request: response):
+                self.authentication.get_access_token('derp')
