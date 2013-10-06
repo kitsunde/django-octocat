@@ -11,7 +11,8 @@ install_requires = [
 tests_requires = [
     'django-discover-runner',
     'factory-boy',
-    'mock'
+    'mock',
+    'httmock'
 ]
 
 
